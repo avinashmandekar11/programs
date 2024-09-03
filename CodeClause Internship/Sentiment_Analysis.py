@@ -28,5 +28,3 @@ if __name__ == "__main__":
     print(f'{mood.emoji}  ({mood.sentiment})')
 
 
-bfbbb
-
