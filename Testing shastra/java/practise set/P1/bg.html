@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, textarea {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .resume-preview {
+            text-align: left;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>📄 Resume Builder</h2>
+        <input type="text" id="name" placeholder="Your Name">
+        <input type="text" id="contact" placeholder="Your Contact Info">
+        <textarea id="summary" placeholder="Short Summary (2-3 lines)"></textarea>
+        <textarea id="experience" placeholder="Work Experience"></textarea>
+        <textarea id="education" placeholder="Education"></textarea>
+        <textarea id="skills" placeholder="Skills (comma-separated)"></textarea>
+        <button onclick="generateResume()">Generate Resume</button>
+        <button onclick="downloadPDF()">Download PDF</button>
+
+        <div class="resume-preview" id="resumePreview"></div>
+    </div>
+
+    <script>
+        function generateResume() {
+            let name = document.getElementById("name").value;
+            let contact = document.getElementById("contact").value;
+            let summary = document.getElementById("summary").value;
+            let experience = document.getElementById("experience").value;
+            let education = document.getElementById("education").value;
+            let skills = document.getElementById("skills").value;
+
+            let resumeHTML = `
+                <h2>${name}</h2>
+                <p><strong>Contact:</strong> ${contact}</p>
+                <p><strong>Summary:</strong> ${summary}</p>
+                <hr>
+                <h3>Experience</h3>
+                <p>${experience}</p>
+                <hr>
+                <h3>Education</h3>
+                <p>${education}</p>
+                <hr>
+                <h3>Skills</h3>
+                <p>${skills}</p>
+            `;
+
+            document.getElementById("resumePreview").innerHTML = resumeHTML;
+        }
+
+        function downloadPDF() {
+            let { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+
+            let name = document.getElementById("name").value;
+            let contact = document.getElementById("contact").value;
+            let summary = document.getElementById("summary").value;
+            let experience = document.getElementById("experience").value;
+            let education = document.getElementById("education").value;
+            let skills = document.getElementById("skills").value;
+
+            doc.setFont("helvetica", "bold");
+            doc.text(20, 20, name);
+            doc.setFont("helvetica", "normal");
+            doc.text(20, 30, `Contact: ${contact}`);
+            doc.text(20, 40, `Summary: ${summary}`);
+            doc.text(20, 50, "Experience:");
+            doc.text(20, 60, experience);
+            doc.text(20, 80, "Education:");
+            doc.text(20, 90, education);
+            doc.text(20, 110, "Skills:");
+            doc.text(20, 120, skills);
+
+            doc.save("Resume.pdf");
+        }
+    </script>
+
+</body>
+</html>

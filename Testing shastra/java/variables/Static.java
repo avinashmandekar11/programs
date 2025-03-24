@@ -1,6 +1,6 @@
 public class Static {
 	
-	static int x = 10;
+	static int x = 15;
 	
 	public static void main (String[] args)
 	{
@@ -13,10 +13,5 @@ public class Static {
 		System.out.println(s.x);
 		System.out.println(s1.x);
 		
-		
-		
 	}
-	
-	
-	
 }
